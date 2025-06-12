@@ -12,7 +12,11 @@ const Table = ({ data, columns, emptyMessage }) => {
             <S.TableHeader>
                 <tr>
                     {columns.map((column) => (
-                        <S.TableHeaderCell key={column.field}>
+                        <S.TableHeaderCell
+                            key={column.field}
+                            width={column.width}
+                            align={column.align}
+                        >
                             {column.headerName}
                         </S.TableHeaderCell>
                     ))}
@@ -22,13 +26,37 @@ const Table = ({ data, columns, emptyMessage }) => {
             <S.TableBody>
                 {data.map((item) => (
                     <tr key={item._id}>
-                        {columns.map((column) => (
-                            <S.TableCell key={`${item._id}-${column.field}`}>
-                                {column.renderCell
-                                    ? column.renderCell(item)
-                                    : item[column.field]}
-                            </S.TableCell>
-                        ))}
+                        {columns.map((column) => {
+                            const cellContent = column.renderCell
+                                ? column.renderCell(item)
+                                : item[column.field];
+
+                            if (column.badge) {
+                                return (
+                                    <S.BadgeCell
+                                        key={`${item._id}-${column.field}`}
+                                        align={column.align}
+                                    >
+                                        <S.Badge
+                                            backgroundColor={column.badge.backgroundColor(item)}
+                                            color={column.badge.color(item)}
+                                        >
+                                            {cellContent}
+                                        </S.Badge>
+                                    </S.BadgeCell>
+                                );
+                            }
+
+                            return (
+                                <S.TableCell
+                                    key={`${item._id}-${column.field}`}
+                                    width={column.width}
+                                    align={column.align}
+                                >
+                                    {cellContent}
+                                </S.TableCell>
+                            );
+                        })}
                     </tr>
                 ))}
             </S.TableBody>
@@ -42,7 +70,13 @@ Table.propTypes = {
         PropTypes.shape({
             field: PropTypes.string.isRequired,
             headerName: PropTypes.string.isRequired,
+            width: PropTypes.string,
+            align: PropTypes.oneOf(['left', 'center', 'right']),
             renderCell: PropTypes.func,
+            badge: PropTypes.shape({
+                backgroundColor: PropTypes.func,
+                color: PropTypes.func,
+            }),
         })
     ).isRequired,
     emptyMessage: PropTypes.string,

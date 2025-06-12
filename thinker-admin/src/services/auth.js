@@ -1,5 +1,14 @@
 import api from './api';
 
+export const registerAdmin = async (adminData) => {
+  try {
+    const { data } = await api.post('/register', adminData);
+    return data;
+  } catch (error) {
+    throw error.response?.data?.message || 'Erro ao registrar administrador';
+  }
+};
+
 export const loginAdmin = async (email, password) => {
   try {
     const { data } = await api.post('/login', { email, password });

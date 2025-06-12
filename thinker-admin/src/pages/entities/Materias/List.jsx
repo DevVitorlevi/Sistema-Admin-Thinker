@@ -1,39 +1,88 @@
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import * as S from './styles';
+import Button from '../../../components/common/Button';
+import Table from '../../../components/common/Table';
+import { getMaterias } from '../../../services/materia';
+import { FiEdit2, FiTrash2, FiPlus } from 'react-icons/fi';
 
-export const CardWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background-color: white;
-  border-radius: ${({ theme }) => theme.radii.md};
-  padding: 20px;
-  box-shadow: ${({ theme }) => theme.shadows.sm};
-  border-left: 4px solid ${({ theme, color }) => theme.colors[color]};
-`;
+const MateriasList = () => {
+    const [materias, setMaterias] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
-export const CardIcon = styled.div`
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-color: ${({ theme, color }) => theme.colors[color]}20;
-  color: ${({ theme, color }) => theme.colors[color]};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+    useEffect(() => {
+        const fetchMaterias = async () => {
+            try {
+                const data = await getMaterias();
+                setMaterias(data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-export const CardContent = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+        fetchMaterias();
+    }, []);
 
-export const CardTitle = styled.span`
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.lightText};
-`;
+    const handleDelete = async (id) => {
+        if (window.confirm('Tem certeza que deseja excluir esta matéria?')) {
+            try {
+                // await deleteMateria(id);
+                setMaterias(materias.filter(materia => materia._id !== id));
+            } catch (err) {
+                alert('Erro ao excluir matéria');
+            }
+        }
+    };
 
-export const CardValue = styled.span`
-  font-size: 24px;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.text};
-`;
+    const columns = [
+        { field: 'nome', headerName: 'Nome' },
+        { field: 'descricao', headerName: 'Descrição' },
+        {
+            field: 'actions',
+            headerName: 'Ações',
+            renderCell: (item) => (
+                <S.ActionsCell>
+                    <Link to={`/materias/${item._id}/edit`}>
+                        <Button variant="secondary" size="sm">
+                            <FiEdit2 />
+                        </Button>
+                    </Link>
+                    <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => handleDelete(item._id)}
+                    >
+                        <FiTrash2 />
+                    </Button>
+                </S.ActionsCell>
+            ),
+        },
+    ];
+
+    if (loading) return <div>Carregando...</div>;
+    if (error) return <div>Erro: {error}</div>;
+
+    return (
+        <S.MateriasContainer>
+            <S.MateriasHeader>
+                <h1>Matérias</h1>
+                <Link to="/materias/create">
+                    <Button>
+                        <FiPlus /> Nova Matéria
+                    </Button>
+                </Link>
+            </S.MateriasHeader>
+
+            <Table
+                data={materias}
+                columns={columns}
+                emptyMessage="Nenhuma matéria cadastrada"
+            />
+        </S.MateriasContainer>
+    );
+};
+
+export default MateriasList;

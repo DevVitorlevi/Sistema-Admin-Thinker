@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './styles';
 import Button from '../../../components/common/Button';
 import Input from '../../../components/common/Input';
-import { getMateriaById, updateMateria } from '../../../services/materias';
+import { getMateriaById, updateMateria } from '../../../services/materia';
 
 const MateriasEdit = () => {
     const { id } = useParams();

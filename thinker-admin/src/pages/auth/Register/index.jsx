@@ -1,44 +1,80 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../context/AuthContext';
 import * as S from './styles';
 import Button from '../../../components/common/Button';
 import Input from '../../../components/common/Input';
+import { registerAdmin } from '../../../services/auth';
+import { validateEmail, validatePassword } from '../../../utils/validation';
 
-const Login = () => {
+const AdminRegister = () => {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [errors, setErrors] = useState({});
+    const [apiError, setApiError] = useState('');
 
-    const { login } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    const validateForm = () => {
+        const newErrors = {};
+
+        if (!name.trim()) newErrors.name = 'Nome é obrigatório';
+        if (!email.trim()) {
+            newErrors.email = 'Email é obrigatório';
+        } else if (!validateEmail(email)) {
+            newErrors.email = 'Email inválido';
+        }
+
+        if (!password) {
+            newErrors.password = 'Senha é obrigatória';
+        } else if (!validatePassword(password)) {
+            newErrors.password = 'Senha deve ter pelo menos 6 caracteres';
+        }
+
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setApiError('');
+
+        if (!validateForm()) return;
+
         setLoading(true);
-        setError('');
 
         try {
-            await login(email, password);
-            navigate('/');
-        } catch (err) {
-            setError(err.message || 'Erro ao fazer login');
+            await registerAdmin({ name, email, password });
+            navigate('/login', {
+                state: { successMessage: 'Administrador registrado com sucesso!' }
+            });
+        } catch (error) {
+            setApiError(error.message || 'Erro ao registrar administrador');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <S.LoginContainer>
-            <S.LoginCard>
-                <S.LoginHeader>
-                    <h1>Thinker Admin</h1>
-                    <p>Painel administrativo</p>
-                </S.LoginHeader>
+        <S.RegisterContainer>
+            <S.RegisterCard>
+                <S.RegisterHeader>
+                    <h1>Criar Conta de Administrador</h1>
+                    <p>Preencha os campos para criar uma nova conta</p>
+                </S.RegisterHeader>
 
-                <S.LoginForm onSubmit={handleSubmit}>
-                    {error && <S.ErrorMessage>{error}</S.ErrorMessage>}
+                <S.RegisterForm onSubmit={handleSubmit}>
+                    {apiError && <S.ErrorMessage>{apiError}</S.ErrorMessage>}
+
+                    <Input
+                        label="Nome Completo"
+                        placeholder="Digite seu nome completo"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        $error={errors.name}
+                    />
 
                     <Input
                         label="Email"
@@ -46,25 +82,28 @@ const Login = () => {
                         placeholder="seu@email.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        required
+                        $error={errors.email}
                     />
 
                     <Input
                         label="Senha"
                         type="password"
-                        placeholder="********"
+                        placeholder="Digite sua senha"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        required
+                        $error={errors.password}
                     />
-
-                    <Button type="submit" fullWidth disabled={loading}>
-                        {loading ? 'Carregando...' : 'Entrar'}
+                    <Button type="submit" $fullWidth disabled={loading}>
+                        {loading ? 'Registrando...' : 'Registrar'}
                     </Button>
-                </S.LoginForm>
-            </S.LoginCard>
-        </S.LoginContainer>
+
+                    <S.LoginLink>
+                        Já tem uma conta? <a href="/login">Faça login</a>
+                    </S.LoginLink>
+                </S.RegisterForm>
+            </S.RegisterCard>
+        </S.RegisterContainer>
     );
 };
 
-export default Login;
+export default AdminRegister;

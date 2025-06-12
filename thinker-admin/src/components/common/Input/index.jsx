@@ -11,11 +11,20 @@ const Input = ({
     textarea = false,
     rows = 3,
     required = false,
+    error = '',
     ...props
 }) => {
+    const hasError = !!error;
+
     return (
         <S.InputContainer>
-            {label && <S.InputLabel>{label}{required && '*'}</S.InputLabel>}
+            {label && (
+                <S.InputLabel>
+                    {label}
+                    {required && <span>*</span>}
+                    {hasError && <S.ErrorText>{error}</S.ErrorText>}
+                </S.InputLabel>
+            )}
             {textarea ? (
                 <S.Textarea
                     placeholder={placeholder}
@@ -23,6 +32,7 @@ const Input = ({
                     onChange={onChange}
                     rows={rows}
                     required={required}
+                    $hasError={hasError}
                     {...props}
                 />
             ) : (
@@ -32,6 +42,7 @@ const Input = ({
                     value={value}
                     onChange={onChange}
                     required={required}
+                    $hasError={hasError}
                     {...props}
                 />
             )}
@@ -48,6 +59,7 @@ Input.propTypes = {
     textarea: PropTypes.bool,
     rows: PropTypes.number,
     required: PropTypes.bool,
+    error: PropTypes.string,
 };
 
 export default Input;

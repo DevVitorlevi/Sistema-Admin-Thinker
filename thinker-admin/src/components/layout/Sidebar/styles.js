@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import styled from "/node_modules/.vite/deps/styled-components.js?v=efd89de0";
+import { NavLink as RouterNavLink } from "/node_modules/.vite/deps/react-router-dom.js?v=efd89de0";
 
 export const SidebarWrapper = styled.aside`
   width: 240px;
@@ -39,7 +39,7 @@ export const NavItem = styled.li`
   margin: 0 8px;
 `;
 
-export const NavLink = styled(NavLink)`
+export const NavLink = styled(RouterNavLink)`
   display: flex;
   align-items: center;
   gap: 12px;

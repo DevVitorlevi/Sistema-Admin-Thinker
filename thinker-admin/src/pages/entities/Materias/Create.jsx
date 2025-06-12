@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import Button from '../../../components/common/Button';
 import Input from '../../../components/common/Input';
-import { createMateria } from '../../../services/materias';
+import { createMateria } from '../../../services/materia';
 
 const MateriasCreate = () => {
     const [nome, setNome] = useState('');

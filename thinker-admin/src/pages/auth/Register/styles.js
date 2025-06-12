@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoginContainer = styled.div`
+export const RegisterContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,16 +9,16 @@ export const LoginContainer = styled.div`
   padding: 20px;
 `;
 
-export const LoginCard = styled.div`
+export const RegisterCard = styled.div`
   background: white;
   border-radius: ${({ theme }) => theme.radii.lg};
   box-shadow: ${({ theme }) => theme.shadows.lg};
   padding: 40px;
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
 `;
 
-export const LoginHeader = styled.div`
+export const RegisterHeader = styled.div`
   text-align: center;
   margin-bottom: 32px;
   
@@ -35,7 +35,7 @@ export const LoginHeader = styled.div`
   }
 `;
 
-export const LoginForm = styled.form`
+export const RegisterForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -46,4 +46,20 @@ export const ErrorMessage = styled.p`
   font-size: 14px;
   text-align: center;
   margin-bottom: 8px;
+`;
+
+export const LoginLink = styled.div`
+  text-align: center;
+  font-size: 14px;
+  color: ${({ theme }) => theme.colors.lightText};
+  
+  a {
+    color: ${({ theme }) => theme.colors.primary};
+    font-weight: 500;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;

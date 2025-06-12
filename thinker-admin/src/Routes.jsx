@@ -14,14 +14,15 @@ import QuestoesCreate from './pages/entities/Questoes/Create';
 import QuestoesEdit from './pages/entities/Questoes/Edit';
 import UsersList from './pages/entities/Users/List';
 import Layout from './components/layout/Layout';
+import AdminRegister from './pages/auth/Register';
 
 const PrivateRoute = ({ children }) => {
   const { admin, loading } = useContext(AuthContext);
-  
+
   if (loading) {
     return <div>Carregando...</div>;
   }
-  
+
   return admin ? <Layout>{children}</Layout> : <Navigate to="/login" />;
 };
 
@@ -30,7 +31,8 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        
+        <Route path="/register" element={<AdminRegister />} />
+
         <Route
           path="/"
           element={
@@ -39,7 +41,7 @@ const AppRoutes = () => {
             </PrivateRoute>
           }
         />
-        
+
         {/* Rotas para Matérias */}
         <Route
           path="/materias"
@@ -65,7 +67,7 @@ const AppRoutes = () => {
             </PrivateRoute>
           }
         />
-        
+
         {/* Rotas para Quizzes */}
         <Route
           path="/quizzes"
@@ -91,7 +93,7 @@ const AppRoutes = () => {
             </PrivateRoute>
           }
         />
-        
+
         {/* Rotas para Questões */}
         <Route
           path="/questoes"
@@ -117,7 +119,7 @@ const AppRoutes = () => {
             </PrivateRoute>
           }
         />
-        
+
         {/* Rotas para Usuários */}
         <Route
           path="/users"

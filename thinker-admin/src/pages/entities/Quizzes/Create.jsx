@@ -5,7 +5,7 @@ import Button from '../../../components/common/Button';
 import Input from '../../../components/common/Input';
 import Select from '../../../components/common/Select';
 import { createQuiz } from '../../../services/quizzes';
-import { getMaterias } from '../../../services/materias';
+import { getMaterias } from '../../../services/materia';
 
 const QuizzesCreate = () => {
     const [titulo, setTitulo] = useState('');

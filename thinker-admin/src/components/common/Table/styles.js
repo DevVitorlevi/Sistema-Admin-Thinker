@@ -19,10 +19,11 @@ export const TableHeader = styled.thead`
 
 export const TableHeaderCell = styled.th`
   padding: 12px 16px;
-  text-align: left;
+  text-align: ${({ align }) => align || 'left'};
   font-weight: 500;
   font-size: 14px;
   color: ${({ theme }) => theme.colors.lightText};
+  width: ${({ width }) => width || 'auto'};
 `;
 
 export const TableBody = styled.tbody`
@@ -34,7 +35,7 @@ export const TableBody = styled.tbody`
     }
     
     &:hover {
-      background-color: ${({ theme }) => theme.colors.background};
+      background-color: ${({ theme }) => theme.colors.background}50;
     }
   }
 `;
@@ -43,6 +44,24 @@ export const TableCell = styled.td`
   padding: 12px 16px;
   font-size: 14px;
   color: ${({ theme }) => theme.colors.text};
+  text-align: ${({ align }) => align || 'left'};
+  width: ${({ width }) => width || 'auto'};
+`;
+
+export const BadgeCell = styled.td`
+  padding: 12px 16px;
+  text-align: ${({ align }) => align || 'left'};
+  width: ${({ width }) => width || 'auto'};
+`;
+
+export const Badge = styled.span`
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  color: ${({ color }) => color};
 `;
 
 export const EmptyMessage = styled.div`
@@ -52,17 +71,4 @@ export const EmptyMessage = styled.div`
   border-radius: ${({ theme }) => theme.radii.md};
   box-shadow: ${({ theme }) => theme.shadows.sm};
   color: ${({ theme }) => theme.colors.lightText};
-`;
-
-export const BadgeCell = styled.td`
-  padding: 12px 16px;
-  font-size: 14px;
-
-  span {
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 500;
-  }
 `;
