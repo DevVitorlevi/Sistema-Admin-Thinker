@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as S from './styles';
 
-const Table = ({ data, columns, emptyMessage }) => {
+const Table = ({ data = [], columns, emptyMessage }) => {
     if (data.length === 0) {
         return <S.EmptyMessage>{emptyMessage}</S.EmptyMessage>;
     }
