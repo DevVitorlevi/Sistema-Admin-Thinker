@@ -9,8 +9,8 @@ import { getQuizzes } from '../../../services/quizzes';
 
 const QuestoesCreate = () => {
     const [pergunta, setPergunta] = useState('');
-    const [alternativas, setAlternativas] = useState(['', '', '', '']);
-    const [respostaCorreta, setRespostaCorreta] = useState('');
+    const [alternativas, setAlternativas] = useState(['', '', '', '', '']);
+    const [respostaCorreta, setRespostaCorreta] = useState(null);
     const [quizId, setQuizId] = useState('');
     const [dificuldade, setDificuldade] = useState('medio');
     const [quizzes, setQuizzes] = useState([]);
@@ -43,7 +43,6 @@ const QuestoesCreate = () => {
         setLoading(true);
         setError('');
 
-        // Validar alternativas
         const validAlternativas = alternativas.filter(a => a.trim() !== '');
         if (validAlternativas.length < 2) {
             setError('É necessário pelo menos 2 alternativas');
@@ -51,7 +50,7 @@ const QuestoesCreate = () => {
             return;
         }
 
-        if (!respostaCorreta || !validAlternativas.includes(respostaCorreta)) {
+        if (respostaCorreta === null || !alternativas[respostaCorreta]) {
             setError('Selecione uma resposta correta válida');
             setLoading(false);
             return;
@@ -61,7 +60,7 @@ const QuestoesCreate = () => {
             await createQuestao({
                 pergunta,
                 alternativas: validAlternativas,
-                respostaCorreta,
+                respostaCorreta: alternativas[respostaCorreta],
                 quizId,
                 dificuldade
             });
@@ -115,8 +114,8 @@ const QuestoesCreate = () => {
                             <S.RadioInput
                                 type="radio"
                                 name="respostaCorreta"
-                                checked={respostaCorreta === alt}
-                                onChange={() => setRespostaCorreta(alt)}
+                                checked={respostaCorreta === index}
+                                onChange={() => setRespostaCorreta(index)}
                                 disabled={!alt.trim()}
                             />
                         </S.AlternativaItem>

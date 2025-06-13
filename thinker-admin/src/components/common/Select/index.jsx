@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactSelect from 'react-select';
 import * as S from './styles';
 
 const Select = ({
@@ -11,22 +12,27 @@ const Select = ({
     required = false,
     ...props
 }) => {
+
+    // react-select trabalha com objeto inteiro no value
+    // então a gente adapta o value e onChange para receber só o value string
+
+    const selectedOption = options.find(opt => opt.value === value) || null;
+
+    const handleChange = (selected) => {
+        onChange({ target: { value: selected ? selected.value : '' } });
+    };
+
     return (
         <S.SelectContainer>
             {label && <S.SelectLabel>{label}{required && '*'}</S.SelectLabel>}
-            <S.SelectElement
-                value={value}
-                onChange={onChange}
-                required={required}
+            <ReactSelect
+                value={selectedOption}
+                onChange={handleChange}
+                options={options}
+                placeholder={placeholder}
+                isClearable={!required}
                 {...props}
-            >
-                <option value="">{placeholder}</option>
-                {options.map(option => (
-                    <option key={option.value} value={option.value}>
-                        {option.label}
-                    </option>
-                ))}
-            </S.SelectElement>
+            />
         </S.SelectContainer>
     );
 };
