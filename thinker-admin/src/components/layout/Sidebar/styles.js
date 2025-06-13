@@ -1,5 +1,5 @@
-import styled from "/node_modules/.vite/deps/styled-components.js?v=efd89de0";
-import { NavLink as RouterNavLink } from "/node_modules/.vite/deps/react-router-dom.js?v=efd89de0";
+import styled from "styled-components";
+import { NavLink as RouterNavLink } from "react-router-dom"; // Import normal, sem caminho do Vite
 
 export const SidebarWrapper = styled.aside`
   width: 240px;
@@ -15,7 +15,7 @@ export const SidebarWrapper = styled.aside`
 export const SidebarHeader = styled.div`
   padding: 20px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  
+
   h2 {
     font-size: 18px;
     font-weight: 600;
@@ -39,7 +39,8 @@ export const NavItem = styled.li`
   margin: 0 8px;
 `;
 
-export const NavLink = styled(RouterNavLink)`
+// Styled NavLink do react-router-dom, com outro nome para evitar confusão
+export const StyledNavLink = styled(RouterNavLink)`
   display: flex;
   align-items: center;
   gap: 12px;
@@ -48,18 +49,18 @@ export const NavLink = styled(RouterNavLink)`
   color: ${({ theme }) => theme.colors.lightText};
   font-size: 14px;
   transition: all 0.2s ease;
-  
+
   &:hover {
     background-color: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.primary};
   }
-  
+
   &.active {
     background-color: ${({ theme }) => theme.colors.primary}10;
     color: ${({ theme }) => theme.colors.primary};
     font-weight: 500;
   }
-  
+
   span {
     flex: 1;
   }

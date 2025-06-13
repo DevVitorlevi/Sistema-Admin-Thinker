@@ -11,8 +11,7 @@ const UsersList = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const users = await getUsers(); // ✅ já vem como array
-                console.log('Usuários recebidos:', users); // ✅ debug
+                const users = await getUsers();
                 setUsers(users);
             } catch (err) {
                 setError(err.message || 'Erro ao carregar usuários.');
