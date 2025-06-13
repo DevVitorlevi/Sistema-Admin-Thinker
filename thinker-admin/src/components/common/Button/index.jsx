@@ -5,9 +5,9 @@ import * as S from './styles';
 const Button = ({ children, variant, size, fullWidth, ...props }) => {
     return (
         <S.ButtonWrapper
-            variant={variant}
-            size={size}
-            fullWidth={fullWidth}
+            $variant={variant}
+            $size={size}
+            $fullWidth={fullWidth}
             {...props}
         >
             {children}
