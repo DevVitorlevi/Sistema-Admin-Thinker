@@ -1,11 +1,12 @@
 import api from './api';
+
 export const getUsers = async () => {
   try {
-    const response = await api.get('/users');
+    const { data } = await api.get('/users');
 
-    // Garantindo que a resposta tenha o formato esperado
-    if (response.data && Array.isArray(response.data.users)) {
-      return response.data.users;
+    // Já que a resposta é um array direto, só retornamos data
+    if (Array.isArray(data)) {
+      return data;
     } else {
       throw new Error('Formato de resposta inesperado da API');
     }
