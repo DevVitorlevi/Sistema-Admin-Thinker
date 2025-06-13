@@ -4,19 +4,24 @@ export const CardWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
-  background-color: white;
+
+  background-color: ${({ theme }) => theme.colors.background};  // fundo escuro do tema
   border-radius: ${({ theme }) => theme.radii.md};
   padding: 20px;
+
   box-shadow: ${({ theme }) => theme.shadows.sm};
-  border-left: 4px solid ${({ theme, color }) => theme.colors[color]};
+  border-left: 4px solid ${({ theme, color }) => theme.colors[color] || theme.colors.primary};
 `;
 
 export const CardIcon = styled.div`
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: ${({ theme, color }) => theme.colors[color]}20;
-  color: ${({ theme, color }) => theme.colors[color]};
+
+  /* o sufixo 20 é para alpha em hex, 20 = 12.5% de opacidade */
+  background-color: ${({ theme, color }) => (theme.colors[color] || theme.colors.primary) + '20'};
+
+  color: ${({ theme, color }) => theme.colors[color] || theme.colors.primary};
   display: flex;
   align-items: center;
   justify-content: center;

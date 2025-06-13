@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { NavLink as RouterNavLink } from "react-router-dom"; // Import normal, sem caminho do Vite
+import { NavLink as RouterNavLink } from "react-router-dom";
 
 export const SidebarWrapper = styled.aside`
   width: 240px;
-  background-color: white;
-  border-right: 1px solid ${({ theme }) => theme.colors.border};
+  background-color: ${({ theme }) => theme.colors.background}; // fundo escuro
+  border-right: 1px solid ${({ theme }) => theme.colors.border}; // borda mais escura
   height: 100vh;
   position: sticky;
   top: 0;
@@ -39,7 +39,6 @@ export const NavItem = styled.li`
   margin: 0 8px;
 `;
 
-// Styled NavLink do react-router-dom, com outro nome para evitar confusão
 export const StyledNavLink = styled(RouterNavLink)`
   display: flex;
   align-items: center;
@@ -51,12 +50,12 @@ export const StyledNavLink = styled(RouterNavLink)`
   transition: all 0.2s ease;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.background};
+    background-color: ${({ theme }) => theme.colors.primary}15; // leve fundo roxo translúcido
     color: ${({ theme }) => theme.colors.primary};
   }
 
   &.active {
-    background-color: ${({ theme }) => theme.colors.primary}10;
+    background-color: ${({ theme }) => theme.colors.primary}30; // fundo roxo mais forte
     color: ${({ theme }) => theme.colors.primary};
     font-weight: 500;
   }

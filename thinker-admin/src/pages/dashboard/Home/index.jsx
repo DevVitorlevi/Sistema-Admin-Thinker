@@ -14,21 +14,27 @@ const Home = () => {
         usuarios: 0,
     });
 
+    const [recentActivities, setRecentActivities] = useState({
+        materias: [],
+        quizzes: [],
+        usuarios: [],
+    });
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Função async para buscar dados
-        const fetchStats = async () => {
+        const fetchStatsAndRecent = async () => {
             try {
                 setLoading(true);
+
                 const [materiasRes, quizzesRes, usuariosRes] = await Promise.all([
                     getMaterias(),
                     getQuizzes(),
                     getUsers(),
                 ]);
 
-                // Aqui, verifique se o dado esperado é um array (ajuste conforme o formato real da resposta)
+                // Ajuste para pegar dados caso venha num objeto { data: [...] }
                 const materiasArray = Array.isArray(materiasRes) ? materiasRes : materiasRes?.data || [];
                 const quizzesArray = Array.isArray(quizzesRes) ? quizzesRes : quizzesRes?.data || [];
                 const usuariosArray = Array.isArray(usuariosRes) ? usuariosRes : usuariosRes?.data || [];
@@ -38,6 +44,13 @@ const Home = () => {
                     quizzes: quizzesArray.length,
                     usuarios: usuariosArray.length,
                 });
+
+                // Pega as 5 últimas atividades - pode ajustar conforme sua necessidade
+                setRecentActivities({
+                    materias: materiasArray.slice(-5).reverse(), // últimos 5 matérias
+                    quizzes: quizzesArray.slice(-5).reverse(),
+                    usuarios: usuariosArray.slice(-5).reverse(),
+                });
             } catch (err) {
                 setError(err);
             } finally {
@@ -45,7 +58,7 @@ const Home = () => {
             }
         };
 
-        fetchStats();
+        fetchStatsAndRecent();
     }, []);
 
     if (loading) {
@@ -53,7 +66,6 @@ const Home = () => {
     }
 
     if (error) {
-        // Corrigido: renderizando a mensagem de erro ao invés do objeto inteiro
         return <p>Erro ao carregar dados: {error.message || String(error)}</p>;
     }
 
@@ -87,7 +99,37 @@ const Home = () => {
 
             <S.DashboardSection>
                 <h2>Atividade Recente</h2>
-                {/* Aqui você pode adicionar uma tabela ou lista de atividades recentes */}
+
+                <S.ActivityGroup>
+                    <h3>Últimas Matérias</h3>
+                    <ul>
+                        {recentActivities.materias.length === 0 && <li>Nenhuma matéria recente</li>}
+                        {recentActivities.materias.map((m) => (
+                            <li key={m._id}>{m.titulo}</li>
+                        ))}
+                    </ul>
+                </S.ActivityGroup>
+
+                <S.ActivityGroup>
+                    <h3>Últimos Quizzes</h3>
+                    <ul>
+                        {recentActivities.quizzes.length === 0 && <li>Nenhum quiz recente</li>}
+                        {recentActivities.quizzes.map((q) => (
+                            <li key={q._id}>{q.titulo}</li>
+                        ))}
+                    </ul>
+                </S.ActivityGroup>
+
+                <S.ActivityGroup>
+                    <h3>Últimos Usuários</h3>
+                    <ul>
+                        {recentActivities.usuarios.length === 0 && <li>Nenhum usuário recente</li>}
+                        {recentActivities.usuarios.map((u) => (
+                            <li key={u._id}>{u.nome || u.username || u.email}</li>
+                        ))}
+                    </ul>
+                </S.ActivityGroup>
+
             </S.DashboardSection>
         </S.DashboardContainer>
     );

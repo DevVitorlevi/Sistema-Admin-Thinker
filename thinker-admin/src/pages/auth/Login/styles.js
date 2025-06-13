@@ -10,7 +10,7 @@ export const LoginContainer = styled.div`
 `;
 
 export const LoginCard = styled.div`
-  background: white;
+  background: ${({ theme }) => theme.colors.background === '#1F2937' ? '#374151' : 'white'};
   border-radius: ${({ theme }) => theme.radii.lg};
   box-shadow: ${({ theme }) => theme.shadows.lg};
   padding: 40px;

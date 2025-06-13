@@ -10,10 +10,10 @@ export const ButtonWrapper = styled.button`
   transition: all 0.2s ease;
 
   background-color: ${({ theme, $variant }) => theme.colors[$variant] || theme.colors.primary};
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
 
   &:hover {
-    opacity: 0.9;
+    filter: brightness(1.1);
   }
 
   &:disabled {
@@ -21,14 +21,14 @@ export const ButtonWrapper = styled.button`
     cursor: not-allowed;
   }
 
-  padding: ${({ $size }) => 
-    $size === 'sm' ? '8px 12px' : 
-    $size === 'lg' ? '12px 24px' : 
+  padding: ${({ $size }) =>
+    $size === 'sm' ? '8px 12px' :
+    $size === 'lg' ? '12px 24px' :
     '10px 16px'};
 
-  font-size: ${({ $size }) => 
-    $size === 'sm' ? '14px' : 
-    $size === 'lg' ? '16px' : 
+  font-size: ${({ $size }) =>
+    $size === 'sm' ? '14px' :
+    $size === 'lg' ? '16px' :
     '15px'};
 
   width: ${({ $fullWidth }) => $fullWidth ? '100%' : 'auto'};

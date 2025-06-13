@@ -3,14 +3,14 @@ import styled from 'styled-components';
 export const TableWrapper = styled.table`
   width: 100%;
   border-collapse: collapse;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background};  // fundo escuro
   border-radius: ${({ theme }) => theme.radii.md};
   box-shadow: ${({ theme }) => theme.shadows.sm};
   overflow: hidden;
 `;
 
 export const TableHeader = styled.thead`
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.border}; // cabeçalho com cor intermediária
   
   tr {
     border-bottom: 1px solid ${({ theme }) => theme.colors.border};
@@ -29,13 +29,13 @@ export const TableHeaderCell = styled.th`
 export const TableBody = styled.tbody`
   tr {
     border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-    
+
     &:last-child {
       border-bottom: none;
     }
-    
+
     &:hover {
-      background-color: ${({ theme }) => theme.colors.background}50;
+      background-color: ${({ theme }) => theme.colors.border}50; // hover suave
     }
   }
 `;
@@ -67,7 +67,7 @@ export const Badge = styled.span`
 export const EmptyMessage = styled.div`
   padding: 20px;
   text-align: center;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background}; // fundo escuro
   border-radius: ${({ theme }) => theme.radii.md};
   box-shadow: ${({ theme }) => theme.shadows.sm};
   color: ${({ theme }) => theme.colors.lightText};

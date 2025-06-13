@@ -5,7 +5,7 @@ export const HeaderWrapper = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background};  // fundo escuro
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
@@ -23,9 +23,9 @@ export const MenuButton = styled.button`
   height: 32px;
   border-radius: 50%;
   color: ${({ theme }) => theme.colors.text};
-  
+
   &:hover {
-    background-color: ${({ theme }) => theme.colors.background};
+    background-color: ${({ theme }) => theme.colors.border};
   }
 `;
 
@@ -47,7 +47,7 @@ export const UserDropdown = styled.div`
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  
+
   &:hover {
     > div:last-child {
       display: block;
@@ -60,7 +60,7 @@ export const UserAvatar = styled.div`
   height: 32px;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,6 +69,7 @@ export const UserAvatar = styled.div`
 export const UserName = styled.span`
   font-size: 14px;
   font-weight: 500;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const DropdownMenu = styled.div`
@@ -76,7 +77,7 @@ export const DropdownMenu = styled.div`
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background}; // fundo escuro
   border-radius: ${({ theme }) => theme.radii.sm};
   box-shadow: ${({ theme }) => theme.shadows.md};
   min-width: 160px;
@@ -91,8 +92,8 @@ export const DropdownItem = styled.div`
   padding: 10px 16px;
   font-size: 14px;
   color: ${({ theme }) => theme.colors.text};
-  
+
   &:hover {
-    background-color: ${({ theme }) => theme.colors.background};
+    background-color: ${({ theme }) => theme.colors.border};
   }
 `;

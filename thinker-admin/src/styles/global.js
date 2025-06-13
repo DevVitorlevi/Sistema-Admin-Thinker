@@ -27,4 +27,8 @@ export const GlobalStyle = createGlobalStyle`
   ul, ol {
     list-style: none;
   }
+  option {
+    background-color: white !important;
+    color: #1F2937 !important; /* texto escuro visível */
+  }
 `;

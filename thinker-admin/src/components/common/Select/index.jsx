@@ -31,7 +31,39 @@ const Select = ({
                 options={options}
                 placeholder={placeholder}
                 isClearable={!required}
-                {...props}
+                styles={{
+                    control: (base, state) => ({
+                        ...base,
+                        backgroundColor: 'white',
+                        borderColor: state.isFocused ? '#4F46E5' : '#E5E7EB',
+                        boxShadow: state.isFocused ? '0 0 0 2px #4F46E520' : 'none',
+                        '&:hover': {
+                            borderColor: '#4F46E5',
+                        },
+                    }),
+                    menu: (base) => ({
+                        ...base,
+                        backgroundColor: 'white',
+                        color: '#1F2937',
+                        zIndex: 20,
+                    }),
+                    option: (base, state) => ({
+                        ...base,
+                        backgroundColor: state.isFocused ? '#4F46E520' : 'white',
+                        color: state.isSelected ? '#4F46E5' : '#1F2937',
+                        '&:hover': {
+                            backgroundColor: '#4F46E520',
+                        },
+                    }),
+                    placeholder: (base) => ({
+                        ...base,
+                        color: '#6B7280',
+                    }),
+                    singleValue: (base) => ({
+                        ...base,
+                        color: '#1F2937',
+                    }),
+                }}
             />
         </S.SelectContainer>
     );

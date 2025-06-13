@@ -14,15 +14,15 @@ export const QuestoesHeader = styled.div`
   h1 {
     font-size: 20px;
     font-weight: 600;
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => theme.colors.white}; // texto claro no dark
   }
 `;
 
 export const QuestoesForm = styled.form`
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.border}; // fundo escuro intermediário
   border-radius: ${({ theme }) => theme.radii.md};
   padding: 24px;
-  box-shadow: ${({ theme }) => theme.shadows.sm};
+  box-shadow: ${({ theme }) => theme.shadows.lg}; // sombra mais forte para destacar
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -48,7 +48,7 @@ export const AlternativasContainer = styled.div`
   label {
     font-size: 14px;
     font-weight: 500;
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => theme.colors.white};
   }
 `;
 
