@@ -20,7 +20,7 @@ const Header = () => {
                     <S.UserAvatar>
                         <FiUser size={18} />
                     </S.UserAvatar>
-                    <S.UserName>Admin</S.UserName>
+                    <S.UserName>{admin.nome}</S.UserName>
                     <S.DropdownMenu>
                         <S.DropdownItem onClick={logout}>
                             <FiLogOut size={16} />

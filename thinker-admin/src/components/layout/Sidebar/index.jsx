@@ -46,6 +46,12 @@ const Sidebar = () => {
                             <span>Usuários</span>
                         </S.NavLink>
                     </S.NavItem>
+                    <S.NavItem>
+                        <S.NavLink to="/register">
+                            <FiUsers size={20} />
+                            <span>Registar Admin</span>
+                        </S.NavLink>
+                    </S.NavItem>
                 </S.NavList>
             </S.SidebarNav>
         </S.SidebarWrapper>
