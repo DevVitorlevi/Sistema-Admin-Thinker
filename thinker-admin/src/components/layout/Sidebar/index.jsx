@@ -46,13 +46,6 @@ const Sidebar = () => {
                             <span>Usuários</span>
                         </S.NavLink>
                     </S.NavItem>
-
-                    <S.NavItem>
-                        <S.NavLink to="/settings">
-                            <FiSettings size={20} />
-                            <span>Configurações</span>
-                        </S.NavLink>
-                    </S.NavItem>
                 </S.NavList>
             </S.SidebarNav>
         </S.SidebarWrapper>
