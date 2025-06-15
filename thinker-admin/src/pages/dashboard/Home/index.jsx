@@ -101,16 +101,6 @@ const Home = () => {
                 <h2>Atividade Recente</h2>
 
                 <S.ActivityGroup>
-                    <h3>Últimas Matérias</h3>
-                    <ul>
-                        {recentActivities.materias.length === 0 && <li>Nenhuma matéria recente</li>}
-                        {recentActivities.materias.map((m) => (
-                            <li key={m._id}>{m.titulo}</li>
-                        ))}
-                    </ul>
-                </S.ActivityGroup>
-
-                <S.ActivityGroup>
                     <h3>Últimos Quizzes</h3>
                     <ul>
                         {recentActivities.quizzes.length === 0 && <li>Nenhum quiz recente</li>}
