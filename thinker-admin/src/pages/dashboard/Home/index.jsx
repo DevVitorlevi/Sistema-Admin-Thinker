@@ -72,7 +72,7 @@ const Home = () => {
     return (
         <S.DashboardContainer>
             <S.DashboardHeader>
-                <h1>Bem-vindo ao Painel Administrativo</h1>
+                <h1>Bem-vindo ao Painel Administrativo Do Thinker</h1>
                 <p>Gerencie seu conteúdo e usuários</p>
             </S.DashboardHeader>
 
